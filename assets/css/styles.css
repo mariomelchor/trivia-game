@@ -1,0 +1,116 @@
+@charset "utf-8";
+
+/*------------------------------------*\
+	#Layout
+\*------------------------------------*/
+
+*, *:before, *:after {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+body {
+	font-size: 24px;
+	color: #000;
+	font-family: 'Roboto Condensed', sans-serif;
+	background: #999;
+}
+.container {
+	width: 1140px;
+	margin-top: 100px;
+	margin-right: auto;
+	margin-bottom: 100px;
+	margin-left: auto;
+}
+.trivia-container {
+	border-radius: 2px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.question {
+	position: relative;
+	padding: 40px 80px 100px;
+	background: #ededed;
+}
+.timer {
+	font-size: 18px;
+	text-transform: uppercase;
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	width: 200px;
+	margin-bottom: -60px;
+	margin-left: -100px;
+	padding: 20px;
+	text-align: center;
+	border: solid 6px #fff;
+	background: #e5e5e5;
+	border-radius: 2px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.timer-interval {
+	font-size: 40px;
+	font-weight: bold;
+}
+.answers {
+	padding: 100px 40px 40px;
+	border-top: solid 5px #e5e5e5;
+	background: #f5f5f5;
+	overflow: hidden;
+}
+.right-answer,
+.wrong-answer {
+	color: #fff;
+	text-align: center;
+	padding: 20px;
+}
+.right-answer {
+	border-top: solid 1px #5C8F36;
+	border-bottom: solid 1px #5C8F36;
+	background-color: #8FC269;
+}
+.wrong-answer {
+	border-top: solid 1px #AA3A3A;
+	border-bottom: solid 1px #AA3A3A;
+	background-color: #DD6D6D;
+}
+.answer {
+	float: left;
+	width: 48%;
+	padding: 20px;
+	margin-right: 4%;
+	margin-bottom: 20px;
+}
+.answer:nth-child(even) {
+	margin-right: 0;
+}
+
+/*------------------------------------*\
+	#Styles
+\*------------------------------------*/
+
+img {
+	height: auto;
+	max-width: 100%;
+}
+
+/*------------------------------------*\
+	#Buttons
+\*------------------------------------*/
+
+.btn-default {
+	border-style: solid;
+	border-width: 1px;
+	border-color: #ddd;
+	background-color: #fff;
+}
+.btn-default:hover,
+.btn-default:focus {
+	border-color: #999;
+	background-color: #ededed;
+}
+.btn-default:active
+.btn-default:active:hover,
+.btn-default:active:focus {
+	border-color: #255625;
+	background-color: #fff;
+}
