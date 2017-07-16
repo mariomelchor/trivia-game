@@ -1,9 +1,13 @@
 $(document).ready(function($) {
 
   // Variables
-  var counter = 10;
+  var counter;
+  var counterInterval;
+  var counterRunning = false;
   var currentQuestion = 0;
-
+  var correctAnswer = 0;
+  var wrongAnswer = 0;
+  var unanswered = 0;
   var questions = [{
     question: "What is the population of Brazil?",
     choices: ["145 million", "199 million", "182 million", "205 million"],
@@ -13,10 +17,6 @@ $(document).ready(function($) {
     choices: ["485", "634", "408", "528"],
     correctAnswer: 2
   }, {
-    question: "What is the busiest train station in the world?",
-    choices: ["Grand Central, NY", "Shibuya, Tokyo", "Beijing Central, Chine", "Gard du Nord, Paris"],
-    correctAnswer: 1
-  }, {
     question: "What is the longest river?",
     choices: ["Nile", "Amazon", "Mississippi", "Yangtze"],
     correctAnswer: 0
@@ -24,24 +24,33 @@ $(document).ready(function($) {
     question: "What is the busiest tube station in the London?",
     choices: ["Waterloo", "Baker Street", "Kings Cross", "Victoria"],
     correctAnswer: 0
-  }]
+  }];
 
   // Hide div on load
   $('#trivia-game').hide();
 
-  // When you click start Game button
+  // When you click #btn-start-game
   $('#btn-start-game').on('click', function(e) {
-    e.preventDefault();
     $('#start-game').hide();
     displayQuestion();
   });
 
   function displayQuestion() {
 
+    console.log(currentQuestion);
+
+    counter = 30;
+    $('#timer-interval').html(counter);
+
     // Setup question/answer variables
     var question = questions[currentQuestion];
-    $('#right-answer').hide();
-    $('#wrong-answer').hide();
+    $('#right-answer, #wrong-answer').hide();
+
+    // Run startTimer function every second
+    if ( !counterRunning ) {
+      counterInterval = setInterval( startTimer, 1000 );
+      counterRunning = true;
+    }
 
     // Shows #trivia-game container and adds class for animation
     $('#trivia-game').show().addClass('bounceIn');
@@ -54,14 +63,15 @@ $(document).ready(function($) {
       $('#answers').append( answerDiv );
     }
 
-    // Run startTimer function every second
-    setInterval( startTimer, 1000);
-
     // When click on of the answers
     $(document).on('click', '.answer', function(e) {
       var guess = $(this).text();
       checkGuess( guess, question );
     });
+
+    if ( currentQuestion > questions.length ) {
+      console.log('Hello');
+    }
 
   }
 
@@ -71,33 +81,42 @@ $(document).ready(function($) {
     $('#timer-interval').html(counter);
 
     if ( counter === 0 ) {
-      stopTimer();
-      currentQuestion++;
-      stopTimer();
-
-
-      displayQuestion();
-      counter = 10;
-      $('#timer-interval').html(counter);
+      unanswered++;
+      nextQuestion();
     }
   }
 
   // Stops Timer
   function stopTimer() {
-    clearInterval(counter);
+    clearInterval( counterInterval );
+    counterRunning  = false;
   }
 
   // Checks if guess is correct
   function checkGuess( guess, question ) {
-
-    var correct = question.correctAnswer;
+    var correctNumber = question.correctAnswer;
+    var correct = question.choices[correctNumber];
 
     // Shows #right-answer/#wrong-answer div depending on guess
-    if ( guess === question.choices[correct] ) {
+    if ( guess === correct ) {
+      correctAnswer++;
       $('#right-answer').show().addClass('flash');
+      $('#right-answer').text('Good Job, that is the Correct answer!!!')
     } else {
+      wrongAnswer++;
       $('#wrong-answer').show().addClass('flash');
+      $('#wrong-answer').text( 'Nice Try, but that is the Wrong answer!!! The correct answer is: ' + correct );
     }
+
+    nextQuestion();
+  }
+
+  // Show the next question in questions array
+  function nextQuestion() {
+    stopTimer();
+    currentQuestion++;
+    setTimeout( displayQuestion, 3000);
+    $('#trivia-game').removeClass('bounceIn');
   }
 
 });
