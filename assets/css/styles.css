@@ -91,15 +91,6 @@ body {
 }
 
 /*------------------------------------*\
-	#Styles
-\*------------------------------------*/
-
-img {
-	height: auto;
-	max-width: 100%;
-}
-
-/*------------------------------------*\
 	#Buttons
 \*------------------------------------*/
 
@@ -111,13 +102,7 @@ img {
 	background-color: #fff;
 }
 .btn:hover,
-.btn:focus {
+.btn-active  {
 	border-color: #999;
 	background-color: #ededed;
-}
-.btn:active
-.btn:active:hover,
-.btn:active:focus {
-	border-color: #255625;
-	background-color: #fff;
 }

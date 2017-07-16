@@ -4,7 +4,7 @@ $(document).ready(function($) {
   var counter;
   var counterInterval;
   var counterRunning = false;
-  var currentQuestion = 0;
+  var questionCounter = 0;
   var correctAnswer = 0;
   var wrongAnswer = 0;
   var unanswered = 0;
@@ -35,18 +35,23 @@ $(document).ready(function($) {
     displayQuestion();
   });
 
+  // Generates each question
   function displayQuestion() {
 
-    console.log(currentQuestion);
-
-    counter = 30;
+    // Reset Counter
+    counter = 10;
     $('#timer-interval').html(counter);
 
-    // Setup question/answer variables
-    var question = questions[currentQuestion];
+    // Setup currentQuestion
+    currentQuestion = questions[questionCounter];
+
+    console.log(questionCounter);
+    console.log(currentQuestion);
+
+    // Hide div on load
     $('#right-answer, #wrong-answer').hide();
 
-    // Run startTimer function every second
+    // Run startTimer function every second if not currently running
     if ( !counterRunning ) {
       counterInterval = setInterval( startTimer, 1000 );
       counterRunning = true;
@@ -54,23 +59,28 @@ $(document).ready(function($) {
 
     // Shows #trivia-game container and adds class for animation
     $('#trivia-game').show().addClass('bounceIn');
-    $('#question').text( question.question );
+
+    // Add question to h1 DOM
+    $('#question').text( currentQuestion.question );
+
+    // Clear out #answers html next time function is called
     $('#answers').html('');
 
     // Cretes div for each answer
-    for ( var i = 0; i < question.choices.length; i++ ) {
-      var answerDiv = $('<div class="answer btn btn-answer">').text( question.choices[i] );
+    for ( var i = 0; i < currentQuestion.choices.length; i++ ) {
+      var answerDiv = $('<div class="answer btn btn-answer">').text( currentQuestion.choices[i] );
       $('#answers').append( answerDiv );
     }
 
-    // When click on of the answers
-    $(document).on('click', '.answer', function(e) {
+    // When click on an answer
+    $('.answer').on('click', function(e) {
+      $(this).addClass('btn-active');
       var guess = $(this).text();
-      checkGuess( guess, question );
+      checkGuess( guess, currentQuestion );
     });
 
-    if ( currentQuestion > questions.length ) {
-      console.log('Hello');
+    if ( questionCounter > questions.length ) {
+      console.log('Done');
     }
 
   }
@@ -101,7 +111,7 @@ $(document).ready(function($) {
     if ( guess === correct ) {
       correctAnswer++;
       $('#right-answer').show().addClass('flash');
-      $('#right-answer').text('Good Job, that is the Correct answer!!!')
+      $('#right-answer').text('Good Job, that is the Correct answer!!!');
     } else {
       wrongAnswer++;
       $('#wrong-answer').show().addClass('flash');
@@ -109,13 +119,18 @@ $(document).ready(function($) {
     }
 
     nextQuestion();
+
   }
 
   // Show the next question in questions array
   function nextQuestion() {
     stopTimer();
-    currentQuestion++;
-    setTimeout( displayQuestion, 3000);
+    questionCounter++;
+
+    console.log( 'Answered Correct : ' + correctAnswer );
+    console.log( 'Answered Wrong : ' + wrongAnswer );
+    console.log( 'Unanswered : ' + unanswered );
+    setTimeout( displayQuestion, 4000 );
     $('#trivia-game').removeClass('bounceIn');
   }
 
