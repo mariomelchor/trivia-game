@@ -71,14 +71,14 @@ $(document).ready(function($) {
     $('#trivia-game').show().addClass('bounceIn');
 
     // Add question to h1 DOM
-    $('#question').text( currentQuestion.question );
+    $('#question').text( currentQuestion.question ).addClass('animated bounce');
 
     // Clear out #answers html next time function is called
     $('#answers').html('');
 
     // Cretes div for each answer
     for ( var i = 0; i < currentQuestion.choices.length; i++ ) {
-      var answerDiv = $('<div class="answer btn btn-answer">').text( currentQuestion.choices[i] );
+      var answerDiv = $('<div class="answer btn btn-answer animated fadeIn">').text( currentQuestion.choices[i] );
       $('#answers').append( answerDiv );
     }
 
@@ -134,6 +134,7 @@ $(document).ready(function($) {
   function nextQuestion() {
     stopTimer();
     questionCounter++;
+    $('#question').removeClass('bounce');
 
     setTimeout( displayQuestion, 4000 );
     $('#trivia-game').removeClass('bounceIn');
@@ -142,18 +143,27 @@ $(document).ready(function($) {
   function showScore() {
 
     $('#question').text('Final Score').addClass('trivia-logo');
-    $('#timer').hide();
+    $('#answers').html('');
 
-    var guessedCorrect = $('<h1>');
-    guessedCorrect.text('Correct Answers : ' + correctAnswer );
-    var guessedWrong   = $('<h1>');
-    guessedWrong.text('Wrong Answers : ' + wrongAnswer );
-    var noGuess        = $('<h1>');
-    noGuess.text('Unanswered : ' + unanswered );
+    var scores = [{
+      text: 'Correct Answers: ',
+      points: correctAnswer,
+      class: 'right-answer'
+    }, {
+      text: 'Wrong Answers: ',
+      points: wrongAnswer,
+      class: 'wrong-answer'
+    }, {
+      text: 'Unanswered: ',
+      points: unanswered,
+      class: 'time-out'
+    }]
 
-    $('#answers').html( guessedCorrect );
-    $('#answers').append( guessedWrong );
-    $('#answers').append( noGuess );
+    for ( var i = 0; i < scores.length; i++ ) {
+      var scoreDiv = $('<div class="score '+ scores[i].class +'">');
+      scoreDiv.html( scores[i].text + scores[i].points );
+      $('#answers').append(scoreDiv);
+    }
 
   }
 
