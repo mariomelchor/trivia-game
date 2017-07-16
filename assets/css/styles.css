@@ -108,10 +108,11 @@ body {
 }
 
 .btn-start-game {
-	width: 50%;
+	width: 32%;
 	margin-left: auto;
 	margin-right: auto;
 	text-transform: uppercase;
+	clear: both;
 }
 
 @media ( min-width: 768px ) {

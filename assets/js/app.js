@@ -38,7 +38,7 @@ $(document).ready(function($) {
   $('#trivia-game').hide();
 
   // When you click #btn-start-game
-  $('#btn-start-game').on('click', function(e) {
+  $(document).on('click', '.btn-start-game', function(e) {
     $('#start-game').hide();
     displayQuestion();
   });
@@ -50,16 +50,18 @@ $(document).ready(function($) {
     counter = 24;
     $('#timer-interval').html(counter);
 
-    // Setup currentQuestion
-    currentQuestion = questions[questionCounter];
-
     // Hide div on load
     $('#right-answer, #wrong-answer, #time-out').hide();
 
+    // Check to see if game is over if no more questions
     if ( questionCounter === questions.length ) {
+      stopTimer();
       showScore();
       return;
     }
+
+    // Setup currentQuestion
+    currentQuestion = questions[questionCounter];
 
     // Run startTimer function every second if not currently running
     if ( !counterRunning ) {
@@ -71,7 +73,7 @@ $(document).ready(function($) {
     $('#trivia-game').show().addClass('bounceIn');
 
     // Add question to h1 DOM
-    $('#question').text( currentQuestion.question ).addClass('animated bounce');
+    $('#question').text( currentQuestion.question ).addClass('animated bounce').removeClass('trivia-logo');
 
     // Clear out #answers html next time function is called
     $('#answers').html('');
@@ -145,6 +147,7 @@ $(document).ready(function($) {
     $('#question').text('Final Score').addClass('trivia-logo');
     $('#answers').html('');
 
+    // Create scores array
     var scores = [{
       text: 'Correct Answers: ',
       points: correctAnswer,
@@ -159,11 +162,20 @@ $(document).ready(function($) {
       class: 'time-out'
     }]
 
+    // Generates html for scores
     for ( var i = 0; i < scores.length; i++ ) {
       var scoreDiv = $('<div class="score '+ scores[i].class +'">');
       scoreDiv.html( scores[i].text + scores[i].points );
       $('#answers').append(scoreDiv);
     }
+
+    questionCounter = 0;
+    correctAnswer = 0;
+    wrongAnswer = 0;
+    unanswered = 0;
+
+    var restart = $('<div id="restart-game" class="btn btn-start-game">').text('New Game');
+    $('#answers').append( restart );
 
   }
 
