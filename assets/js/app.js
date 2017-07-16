@@ -88,6 +88,7 @@ $(document).ready(function($) {
     $('.answer').on('click', function(e) {
       $(this).addClass('btn-active');
       var guess = $(this).text();
+      $('#answers').html('');
       checkGuess( guess, currentQuestion );
     });
 
@@ -120,10 +121,12 @@ $(document).ready(function($) {
     // Shows #right-answer/#wrong-answer div depending on guess
     if ( guess === correct ) {
       correctAnswer++;
+      console.log('Right: ' + correctAnswer);
       $('#right-answer').show().addClass('flash');
       $('#right-answer').text('Swoosh, that is the Correct answer!!!');
     } else {
       wrongAnswer++;
+      console.log('Wrong: ' + wrongAnswer);
       $('#wrong-answer').show().addClass('flash');
       $('#wrong-answer').text( 'Brick, that is the Wrong answer!!! The correct answer is: ' + correct );
     }
