@@ -9,21 +9,29 @@ $(document).ready(function($) {
   var wrongAnswer = 0;
   var unanswered = 0;
   var questions = [{
-    question: "What is the population of Brazil?",
-    choices: ["145 million", "199 million", "182 million", "205 million"],
-    correctAnswer: 1
-  }, {
-    question: "What is 27*14?",
-    choices: ["485", "634", "408", "528"],
+    question: "What is the regulation height for a basketball hoop?",
+    choices: ["8 feet", "8 feet", "10 feet", "11 feet"],
     correctAnswer: 2
   }, {
-    question: "What is the longest river?",
-    choices: ["Nile", "Amazon", "Mississippi", "Yangtze"],
+    question: "Which basketball team did Michael Jordan play for in college?",
+    choices: ["University of North Carolina", "Michigan State", "Stanford", "USC"],
     correctAnswer: 0
   }, {
-    question: "What is the busiest tube station in the London?",
-    choices: ["Waterloo", "Baker Street", "Kings Cross", "Victoria"],
-    correctAnswer: 0
+    question: "What NBA player scored 100 points on March 2, 1962?",
+    choices: ["Bill Russel", "Kareem Abdul-Jabbar", "Elgin Baylor", "Wilt Chamberlain"],
+    correctAnswer: 3
+  }, {
+    question: "Who was the first player in NBA history to be elected league MVP by a unanimous vote?",
+    choices: ["Lebron James", "Stephen Curry", "Magic Johnson", "Michael Jordan"],
+    correctAnswer: 1
+  }, {
+    question: "What team owns the longest winning streak in NBA history?",
+    choices: ["Golden State Warriors", "Los Angeles Lakers", "Miami Heat", "Chicago Bulls"],
+    correctAnswer: 1
+  }, {
+    question: "Who was the youngest player to score 10,000 points in the NBA?",
+    choices: ["Wilt Chamberlain", "Michael Jordan", "Lebron James", "Kobe Bryant"],
+    correctAnswer: 2
   }];
 
   // Hide div on load
@@ -94,7 +102,7 @@ $(document).ready(function($) {
     if ( counter === 0 ) {
       unanswered++;
       $('#time-out').show().addClass('flash');
-      $('#time-out').text('Too Slow, You ran out of time!!!');
+      $('#time-out').text('Shot Clock Expired, You ran out of time!!!');
       nextQuestion();
     }
   }
@@ -114,11 +122,11 @@ $(document).ready(function($) {
     if ( guess === correct ) {
       correctAnswer++;
       $('#right-answer').show().addClass('flash');
-      $('#right-answer').text('Good Job, that is the Correct answer!!!');
+      $('#right-answer').text('Swoosh, that is the Correct answer!!!');
     } else {
       wrongAnswer++;
       $('#wrong-answer').show().addClass('flash');
-      $('#wrong-answer').text( 'Nice Try, but that is the Wrong answer!!! The correct answer is: ' + correct );
+      $('#wrong-answer').text( 'Brick, that is the Wrong answer!!! The correct answer is: ' + correct );
     }
 
     nextQuestion();
@@ -140,7 +148,7 @@ $(document).ready(function($) {
 
   function showScore() {
 
-    $('#question').text('Your Score');
+    $('#question').text('Your Score').addClass('trivia-logo');
     $('#timer').hide();
 
     var guessedCorrect = $('<h1>');

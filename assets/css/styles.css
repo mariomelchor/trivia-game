@@ -40,20 +40,21 @@ body {
 	background: rgba( 0,0,0,.25);
 	text-transform: uppercase;
 	text-align: center;
-	/*border: solid 2px #F75C03;*/
 }
 .timer {
+	color: #000;
 	font-size: 18px;
+	font-weight: bold;
 	position: absolute;
 	left: 50%;
 	bottom: 0;
 	width: 200px;
 	margin-bottom: -60px;
 	margin-left: -100px;
-	padding: 20px;
+	padding: 15px 10px;
 	text-align: center;
-	border: solid 6px #F75C03;
-	background: #000;
+	border: solid 4px #F75C03;
+	background: #F75C03;
 	border-radius: 2px;
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
@@ -62,9 +63,9 @@ body {
 	font-weight: bold;
 }
 .trivia-body {
-	padding: 100px 40px 40px;
+	padding: 70px 40px 40px;
 	border-top: solid 10px #F75C03;
-	background: #f5f5f5;
+	background: rgba( 255,255,255,.25);
 	overflow: hidden;
 }
 .right-answer,
@@ -75,15 +76,18 @@ body {
 	padding: 20px;
 }
 .right-answer {
-	border: solid 1px #5C8F36;
-	background-color: #8FC269;
+	border-top: solid 2px #007835;
+	border-bottom: solid 2px #007835;
+	background-color: #009240;
 }
 .wrong-answer {
-	border: solid 1px #AA3A3A;
-	background-color: #DD6D6D;
+	border-top: solid 2px #B51716;
+	border-bottom: solid 2px #B51716;
+	background-color: #DD1C1A;
 }
 .time-out {
-	border: solid 1px #033363;
+	border-top: solid 2px #033363;
+	border-bottom: solid 2px #033363;
 	background-color: #064789;
 }
 .btn-answer {
@@ -96,9 +100,10 @@ body {
 	margin-right: 0;
 }
 .btn-start-game {
-	width: 50%;
+	width: 25%;
 	margin-left: auto;
 	margin-right: auto;
+	text-transform: uppercase;
 }
 
 /*------------------------------------*\
@@ -106,8 +111,12 @@ body {
 \*------------------------------------*/
 
 h1 {
-	font-size: 75px;
+	font-size: 50px;
 	font-family: 'Graduate', cursive;
+	margin: 0;
+}
+h1.trivia-logo {
+	font-size: 75px;
 }
 
 /*------------------------------------*\
@@ -115,14 +124,18 @@ h1 {
 \*------------------------------------*/
 
 .btn {
+	font-weight: bold;
+	text-align: center;
+	cursor: pointer;
 	padding: 20px;
 	border-style: solid;
-	border-width: 1px;
-	border-color: #ddd;
+	border-width: 2px;
+	border-color: #000;
 	background-color: #fff;
 }
 .btn:hover,
 .btn-active  {
-	border-color: #999;
-	background-color: #ededed;
+	color: #fff;
+	border-color: #CB4C03;
+	background-color: #F75C03;
 }
