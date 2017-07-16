@@ -46,9 +46,6 @@ $(document).ready(function($) {
   // Generates each question
   function displayQuestion() {
 
-    console.log( 'Question Counter: ' + questionCounter );
-    console.log( 'Question Array: ' + questions.length );
-
     // Reset Counter
     counter = 24;
     $('#timer-interval').html(counter);
@@ -138,17 +135,13 @@ $(document).ready(function($) {
     stopTimer();
     questionCounter++;
 
-    console.log( 'Answered Correct : ' + correctAnswer );
-    console.log( 'Answered Wrong : ' + wrongAnswer );
-    console.log( 'Unanswered : ' + unanswered );
-
     setTimeout( displayQuestion, 4000 );
     $('#trivia-game').removeClass('bounceIn');
   }
 
   function showScore() {
 
-    $('#question').text('Your Score').addClass('trivia-logo');
+    $('#question').text('Final Score').addClass('trivia-logo');
     $('#timer').hide();
 
     var guessedCorrect = $('<h1>');

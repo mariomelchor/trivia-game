@@ -10,11 +10,11 @@
 	box-sizing: border-box;
 }
 html {
-	height: 100%;
+	min-height: 100%;
 }
 body {
-	font-size: 24px;
 	color: #000;
+	margin: 0;
 	font-family: 'Roboto Condensed', sans-serif;
 	background: #999 url('../images/basketball-bg-2.jpg') no-repeat center center;
 	-webkit-background-size: cover;
@@ -22,12 +22,29 @@ body {
 	overflow-x: hidden;
 }
 .container {
-	width: 1140px;
-	margin-top: 100px;
+	width: 100%;
+	margin-top: 25px;
 	margin-right: auto;
-	margin-bottom: 100px;
+	margin-bottom: 25px;
 	margin-left: auto;
 }
+
+@media ( min-width: 768px ) {
+	.container {
+		margin-top: 100px;
+		margin-bottom: 100px;
+	}
+}
+
+@media ( min-width: 1140px ) {
+	body {
+		font-size: 24px;
+	}
+	.container {
+		width: 1140px;
+	}
+}
+
 .trivia-container {
 	border-radius: 2px;
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
@@ -36,7 +53,7 @@ body {
 .trivia-header {
 	color: #fff;
 	position: relative;
-	padding: 40px 80px 100px;
+	padding: 40px 30px 70px;
 	background: rgba( 0,0,0,.25);
 	text-transform: uppercase;
 	text-align: center;
@@ -91,19 +108,25 @@ body {
 	background-color: #064789;
 }
 .btn-answer {
-	float: left;
-	width: 48%;
-	margin-right: 4%;
 	margin-bottom: 20px;
 }
-.btn-answer:nth-child(even) {
-	margin-right: 0;
-}
+
 .btn-start-game {
-	width: 25%;
+	width: 50%;
 	margin-left: auto;
 	margin-right: auto;
 	text-transform: uppercase;
+}
+
+@media ( min-width: 768px ) {
+	.btn-answer {
+		float: left;
+		width: 48%;
+		margin-right: 4%;
+	}
+	.btn-answer:nth-child(even) {
+		margin-right: 0;
+	}
 }
 
 /*------------------------------------*\
@@ -111,14 +134,19 @@ body {
 \*------------------------------------*/
 
 h1 {
-	font-size: 50px;
 	font-family: 'Graduate', cursive;
 	margin: 0;
 }
-h1.trivia-logo {
-	font-size: 75px;
-}
 
+
+@media ( min-width: 768px ) {
+	h1 {
+		font-size: 50px;
+	}
+	h1.trivia-logo {
+		font-size: 75px;
+	}
+}
 /*------------------------------------*\
 	#Buttons
 \*------------------------------------*/
