@@ -10,11 +10,11 @@ $(document).ready(function($) {
   var unanswered = 0;
   var questions = [{
     question: "What is the regulation height for a basketball hoop?",
-    choices: ["8 feet", "8 feet", "10 feet", "11 feet"],
+    choices: ["8 feet", "9 feet", "10 feet", "11 feet"],
     correctAnswer: 2
   }, {
     question: "Which basketball team did Michael Jordan play for in college?",
-    choices: ["University of North Carolina", "Michigan State", "Stanford", "USC"],
+    choices: ["University of North Carolina", "Michigan State University", "Stanford University", "University of Southern California"],
     correctAnswer: 0
   }, {
     question: "What NBA player scored 100 points on March 2, 1962?",
