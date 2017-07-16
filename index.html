@@ -3,6 +3,8 @@
 <head>
   <title>Trivia Game - Mario Melchor</title>
   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,400i,700,700i" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/animate.css">
   <link rel="stylesheet" href="assets/css/normalize.css">
   <link rel="stylesheet" href="assets/css/styles.css">
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
@@ -10,10 +12,14 @@
 </head>
 <body>
   <div class="container">
-    <div class="trivia-container">
+
+
+    <a href="#" id="start-game" class="btn btn-default">Start Game</a>
+
+    <div id="trivia-game" class="trivia-container animated">
 
       <div id="question" class="question">
-        <h1>Audiences in ancient Greece would slap their thighs instead of clapping to show their appreciation for a performance?</h1>
+        <h1 class="animated"></h1>
 
         <div id="timer" class="timer">
           <div>Time Remaining</div>
@@ -21,12 +27,7 @@
         </div><!-- /#timer -->
       </div><!-- /#question -->
 
-      <div id="answers" class="answers">
-        <div class="answer answer-1 btn btn-default">A. 145 million</div>
-        <div class="answer answer-2 btn btn-default">B. 199 million</div>
-        <div class="answer answer-3 btn btn-default">C. 182 million</div>
-        <div class="answer answer-4 btn btn-default">D. 205 million</div>
-      </div><!-- /#answers -->
+      <div id="answers" class="answers"></div><!-- /#answers -->
 
       <div id="wrong-answer" class="wrong-answer">Nice Try, but that is the Wrong answer!!!</div><!-- /#wrong -->
       <div id="right-answer" class="right-answer">Good Job, that is the Correct answer!!!</div><!-- /#right -->
