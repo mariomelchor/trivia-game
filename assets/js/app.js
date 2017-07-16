@@ -45,11 +45,11 @@ $(document).ready(function($) {
     // Setup currentQuestion
     currentQuestion = questions[questionCounter];
 
-    console.log(questionCounter);
-    console.log(currentQuestion);
+    // console.log(questionCounter);
+    // console.log(currentQuestion);
 
     // Hide div on load
-    $('#right-answer, #wrong-answer').hide();
+    $('#right-answer, #wrong-answer, #time-out').hide();
 
     // Run startTimer function every second if not currently running
     if ( !counterRunning ) {
@@ -92,6 +92,8 @@ $(document).ready(function($) {
 
     if ( counter === 0 ) {
       unanswered++;
+      $('#time-out').show().addClass('flash');
+      $('#time-out').text('Too Slow, You ran out of time!!!');
       nextQuestion();
     }
   }
