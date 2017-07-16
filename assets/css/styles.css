@@ -28,7 +28,7 @@ body {
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 	animation-duration: 1s;
 }
-.question {
+.trivia-header {
 	position: relative;
 	padding: 40px 80px 100px;
 	background: #ededed;
@@ -53,7 +53,7 @@ body {
 	font-size: 40px;
 	font-weight: bold;
 }
-.answers {
+.trivia-body {
 	padding: 100px 40px 40px;
 	border-top: solid 5px #e5e5e5;
 	background: #f5f5f5;
@@ -75,15 +75,19 @@ body {
 	border-bottom: solid 1px #AA3A3A;
 	background-color: #DD6D6D;
 }
-.answer {
+.btn-answer {
 	float: left;
 	width: 48%;
-	padding: 20px;
 	margin-right: 4%;
 	margin-bottom: 20px;
 }
-.answer:nth-child(even) {
+.btn-answer:nth-child(even) {
 	margin-right: 0;
+}
+.btn-start-game {
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 /*------------------------------------*\
@@ -99,20 +103,21 @@ img {
 	#Buttons
 \*------------------------------------*/
 
-.btn-default {
+.btn {
+	padding: 20px;
 	border-style: solid;
 	border-width: 1px;
 	border-color: #ddd;
 	background-color: #fff;
 }
-.btn-default:hover,
-.btn-default:focus {
+.btn:hover,
+.btn:focus {
 	border-color: #999;
 	background-color: #ededed;
 }
-.btn-default:active
-.btn-default:active:hover,
-.btn-default:active:focus {
+.btn:active
+.btn:active:hover,
+.btn:active:focus {
 	border-color: #255625;
 	background-color: #fff;
 }

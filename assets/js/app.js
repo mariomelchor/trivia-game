@@ -26,14 +26,13 @@ $(document).ready(function($) {
     correctAnswer: 0
   }]
 
-  // Hide div's on load
-  $('#right-answer').hide();
-  $('#wrong-answer').hide();
+  // Hide div on load
   $('#trivia-game').hide();
 
-  $('#start-game').on('click', function(e) {
+  // When you click start Game button
+  $('#btn-start-game').on('click', function(e) {
     e.preventDefault();
-    $(this).hide();
+    $('#start-game').hide();
     displayQuestion();
   });
 
@@ -41,32 +40,30 @@ $(document).ready(function($) {
 
     // Setup question/answer variables
     var question = questions[currentQuestion];
-    var correct = question.correctAnswer;
+    $('#right-answer').hide();
+    $('#wrong-answer').hide();
 
     // Shows #trivia-game container and adds class for animation
     $('#trivia-game').show().addClass('bounceIn');
-    $('#question h1').html( question.question );
+    $('#question').text( question.question );
     $('#answers').html('');
 
     // Cretes div for each answer
     for ( var i = 0; i < question.choices.length; i++ ) {
-      var answerDiv = $('<div class="answer btn btn-default">').text( question.choices[i] );
+      var answerDiv = $('<div class="answer btn btn-answer">').text( question.choices[i] );
       $('#answers').append( answerDiv );
     }
 
-    // setInterval( startTimer, 1000);
+    // Run startTimer function every second
+    setInterval( startTimer, 1000);
 
     // When click on of the answers
     $(document).on('click', '.answer', function(e) {
       var guess = $(this).text();
-      console.log(guess);
-      checkGuess(guess);
+      checkGuess( guess, question );
     });
 
-
   }
-
-
 
   // Starts Timer
   function startTimer() {
@@ -75,21 +72,32 @@ $(document).ready(function($) {
 
     if ( counter === 0 ) {
       stopTimer();
-
       currentQuestion++;
       stopTimer();
+
+
       displayQuestion();
+      counter = 10;
+      $('#timer-interval').html(counter);
     }
   }
 
   // Stops Timer
   function stopTimer() {
     clearInterval(counter);
-    counter = 10;
   }
 
-  function checkGuess( guess ) {
+  // Checks if guess is correct
+  function checkGuess( guess, question ) {
 
+    var correct = question.correctAnswer;
+
+    // Shows #right-answer/#wrong-answer div depending on guess
+    if ( guess === question.choices[correct] ) {
+      $('#right-answer').show().addClass('flash');
+    } else {
+      $('#wrong-answer').show().addClass('flash');
+    }
   }
 
 });

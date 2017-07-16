@@ -13,13 +13,20 @@
 <body>
   <div class="container">
 
+    <div id="start-game" class="trivia-container animated bounceIn">
+      <div class="trivia-header">
+        <h1>Trivia Game</h1>
+      </div><!-- /.trivia-header -->
 
-    <a href="#" id="start-game" class="btn btn-default">Start Game</a>
+      <div class="trivia-body">
+        <div id="btn-start-game" class="btn btn-start-game">Start Game</div><!-- /.start-game-btn -->
+      </div><!-- /.trivia-body -->
+    </div><!-- /.trivia-container -->
 
     <div id="trivia-game" class="trivia-container animated">
 
-      <div id="question" class="question">
-        <h1 class="animated"></h1>
+      <div class="trivia-header">
+        <h1 id="question"></h1>
 
         <div id="timer" class="timer">
           <div>Time Remaining</div>
@@ -27,12 +34,13 @@
         </div><!-- /#timer -->
       </div><!-- /#question -->
 
-      <div id="answers" class="answers"></div><!-- /#answers -->
+      <div id="answers" class="trivia-body"></div><!-- /#trivia-body -->
 
-      <div id="wrong-answer" class="wrong-answer">Nice Try, but that is the Wrong answer!!!</div><!-- /#wrong -->
-      <div id="right-answer" class="right-answer">Good Job, that is the Correct answer!!!</div><!-- /#right -->
+      <div id="wrong-answer" class="wrong-answer animated">Nice Try, but that is the Wrong answer!!!</div><!-- /#wrong -->
+      <div id="right-answer" class="right-answer animated">Good Job, that is the Correct answer!!!</div><!-- /#right -->
 
     </div><!-- /.trivia-container -->
+
   </div><!-- /.container -->
 </body>
 </html>
