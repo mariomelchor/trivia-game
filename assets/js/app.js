@@ -38,18 +38,23 @@ $(document).ready(function($) {
   // Generates each question
   function displayQuestion() {
 
+    console.log( 'Question Counter: ' + questionCounter );
+    console.log( 'Question Array: ' + questions.length );
+
     // Reset Counter
-    counter = 10;
+    counter = 24;
     $('#timer-interval').html(counter);
 
     // Setup currentQuestion
     currentQuestion = questions[questionCounter];
 
-    // console.log(questionCounter);
-    // console.log(currentQuestion);
-
     // Hide div on load
     $('#right-answer, #wrong-answer, #time-out').hide();
+
+    if ( questionCounter === questions.length ) {
+      showScore();
+      return;
+    }
 
     // Run startTimer function every second if not currently running
     if ( !counterRunning ) {
@@ -78,10 +83,6 @@ $(document).ready(function($) {
       var guess = $(this).text();
       checkGuess( guess, currentQuestion );
     });
-
-    if ( questionCounter > questions.length ) {
-      console.log('Done');
-    }
 
   }
 
@@ -132,8 +133,27 @@ $(document).ready(function($) {
     console.log( 'Answered Correct : ' + correctAnswer );
     console.log( 'Answered Wrong : ' + wrongAnswer );
     console.log( 'Unanswered : ' + unanswered );
+
     setTimeout( displayQuestion, 4000 );
     $('#trivia-game').removeClass('bounceIn');
+  }
+
+  function showScore() {
+
+    $('#question').text('Your Score');
+    $('#timer').hide();
+
+    var guessedCorrect = $('<h1>');
+    guessedCorrect.text('Correct Answers : ' + correctAnswer );
+    var guessedWrong   = $('<h1>');
+    guessedWrong.text('Wrong Answers : ' + wrongAnswer );
+    var noGuess        = $('<h1>');
+    noGuess.text('Unanswered : ' + unanswered );
+
+    $('#answers').html( guessedCorrect );
+    $('#answers').append( guessedWrong );
+    $('#answers').append( noGuess );
+
   }
 
 });
