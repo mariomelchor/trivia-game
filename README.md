@@ -8,3 +8,7 @@ Try the app Here [http://trivia.mariomelchor.com/](http://trivia.mariomelchor.co
 
 1. [jQuery](https://jquery.com/)
 2. [Animate.css](https://github.com/daneden/animate.css)
+
+![alt text](assets/images/trivia-game-screenshot-1.jpg "Trivia Game Screenshot")
+
+![alt text](assets/images/trivia-game-screenshot-2.jpg "Trivia Game Screenshot")
