@@ -8,31 +8,16 @@ $(document).ready(function($) {
   var correctAnswer = 0;
   var wrongAnswer = 0;
   var unanswered = 0;
-  var questions = [{
-    question: "What is the regulation height for a basketball hoop?",
-    choices: ["8 feet", "9 feet", "10 feet", "11 feet"],
-    correctAnswer: 2
-  }, {
-    question: "Which basketball team did Michael Jordan play for in college?",
-    choices: ["University of North Carolina", "Michigan State University", "Stanford University", "University of Southern California"],
-    correctAnswer: 0
-  }, {
-    question: "What NBA player scored 100 points on March 2, 1962?",
-    choices: ["Bill Russel", "Kareem Abdul-Jabbar", "Elgin Baylor", "Wilt Chamberlain"],
-    correctAnswer: 3
-  }, {
-    question: "Who was the first player in NBA history to be elected league MVP by a unanimous vote?",
-    choices: ["Lebron James", "Stephen Curry", "Magic Johnson", "Michael Jordan"],
-    correctAnswer: 1
-  }, {
-    question: "What team owns the longest winning streak in NBA history?",
-    choices: ["Golden State Warriors", "Los Angeles Lakers", "Miami Heat", "Chicago Bulls"],
-    correctAnswer: 1
-  }, {
-    question: "Who was the youngest player to score 10,000 points in the NBA?",
-    choices: ["Wilt Chamberlain", "Michael Jordan", "Lebron James", "Kobe Bryant"],
-    correctAnswer: 2
-  }];
+  var questions;
+  
+  // Load questions from json file.
+  $.getJSON('assets/js/questions.json')
+    .done(function(data){
+      questions = data;
+    })
+    .fail(function() {
+      console.log('There was an error loading the questions');
+    });
 
   // Hide div on load
   $('#trivia-game').hide();
