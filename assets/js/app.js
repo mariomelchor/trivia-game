@@ -20,11 +20,12 @@ $(document).ready(function($) {
     });
 
   // Hide div on load
-  $('#trivia-game').hide();
+  $('#trivia-game, #scores').hide();
 
   // When you click #btn-start-game
   $(document).on('click', '.btn-start-game', function(e) {
     $('#start-game').hide();
+    $('#trivia-game').show();
     displayQuestion();
   });
 
@@ -56,16 +57,13 @@ $(document).ready(function($) {
       counterRunning = true;
     }
 
-    // Shows #trivia-game container and adds class for animation
-    $('#trivia-game').show().addClass('bounceIn');
+    // Adds class to #trivia-game container
+    $('#trivia-game').addClass('bounceIn');
 
     // Add question to h1 DOM
     $('#question').text( currentQuestion.question ).addClass('animated bounce');
-
-    // Clear out #answers html next time function is called
-    $('#answers').html('');
-
-    // Crate answers function
+    
+    // Create answers function
     createAnswers(currentQuestion);
 
   }
@@ -80,6 +78,7 @@ $(document).ready(function($) {
 
   // function to display answers
   function createAnswers(question){
+    $('#answers').empty();
     for ( var i = 0; i < question.choices.length; i++ ) {
       var answerDiv = $('<div class="answer btn btn-answer animated fadeIn">').text( question.choices[i] );
       $('#answers').append( answerDiv );
@@ -139,30 +138,12 @@ $(document).ready(function($) {
   function showScore() {
 
     $('.trivia-logo').text('Final Score');
-    $('#start-game').show();
+    $('#start-game, #scores').show();
     $('#trivia-game').hide();
-
-    // Create scores array
-    var scores = [{
-      text: 'Correct Answers: ',
-      points: correctAnswer,
-      class: 'right-answer'
-    }, {
-      text: 'Wrong Answers: ',
-      points: wrongAnswer,
-      class: 'wrong-answer'
-    }, {
-      text: 'Unanswered: ',
-      points: unanswered,
-      class: 'time-out'
-    }]
-
-    // Generates html for scores
-    for ( var i = 0; i < scores.length; i++ ) {
-      var scoreDiv = $('<div class="score '+ scores[i].class +'">');
-      scoreDiv.html( scores[i].text + scores[i].points );
-      $('#start-game .trivia-body').prepend(scoreDiv);
-    }
+    
+    $('.time-out span').text(unanswered);
+    $('.wrong-answer span').text(wrongAnswer);
+    $('.right-answer span').text(correctAnswer);
 
     questionCounter = 0;
     correctAnswer = 0;
