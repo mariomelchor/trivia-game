@@ -38,12 +38,7 @@ $(document).ready(function($) {
   // Generates each question
   function displayQuestion() {
 
-    // Reset Counter
-    counter = 24;
-    $('#timer-interval').html(counter);
-
-    // Hide div on load
-    $('#right-answer, #wrong-answer, #time-out').hide();
+    resetCounter();
 
     // Check to see if game is over if no more questions
     if ( questionCounter === questions.length ) {
@@ -73,6 +68,14 @@ $(document).ready(function($) {
     // Crate answers function
     createAnswers(currentQuestion);
 
+  }
+
+  // Reset Counter
+  function resetCounter(){
+    counter = 24;
+
+    $('#right-answer, #wrong-answer, #time-out').hide();
+    $('#timer-interval').html(counter);
   }
 
   // function to display answers
