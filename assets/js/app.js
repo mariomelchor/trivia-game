@@ -28,6 +28,13 @@ $(document).ready(function($) {
     displayQuestion();
   });
 
+  // When aan answer is clicked
+  $(document).on('click', '.answer', function(e) {
+    $(this).addClass('btn-active');
+    var guess = $(this).text();
+    checkGuess( guess, currentQuestion );
+  });
+
   // Generates each question
   function displayQuestion() {
 
@@ -66,19 +73,10 @@ $(document).ready(function($) {
     // Crate answers function
     createAnswers(currentQuestion);
 
-    // When click on an answer
-    $('.answer').on('click', function(e) {
-      $(this).addClass('btn-active');
-      var guess = $(this).text();
-      $('#answers').html('');
-      checkGuess( guess, currentQuestion );
-    });
-
   }
 
   // function to display answers
   function createAnswers(question){
-    console.log(question);
     for ( var i = 0; i < question.choices.length; i++ ) {
       var answerDiv = $('<div class="answer btn btn-answer animated fadeIn">').text( question.choices[i] );
       $('#answers').append( answerDiv );
@@ -112,12 +110,10 @@ $(document).ready(function($) {
     // Shows #right-answer/#wrong-answer div depending on guess
     if ( guess === correct ) {
       correctAnswer++;
-      console.log('Right: ' + correctAnswer);
       $('#right-answer').show().addClass('flash');
       $('#right-answer').text('Swoosh, that is the Correct answer!!!');
     } else {
       wrongAnswer++;
-      console.log('Wrong: ' + wrongAnswer);
       $('#wrong-answer').show().addClass('flash');
       $('#wrong-answer').text( 'Brick, that is the Wrong answer!!! The correct answer is: ' + correct );
     }
@@ -132,7 +128,7 @@ $(document).ready(function($) {
     questionCounter++;
     $('#question').removeClass('bounce');
 
-    setTimeout( displayQuestion, 4000 );
+    setTimeout( displayQuestion, 2000 );
     $('#trivia-game').removeClass('bounceIn');
   }
 
