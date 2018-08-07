@@ -63,11 +63,8 @@ $(document).ready(function($) {
     // Clear out #answers html next time function is called
     $('#answers').html('');
 
-    // Cretes div for each answer
-    for ( var i = 0; i < currentQuestion.choices.length; i++ ) {
-      var answerDiv = $('<div class="answer btn btn-answer animated fadeIn">').text( currentQuestion.choices[i] );
-      $('#answers').append( answerDiv );
-    }
+    // Crate answers function
+    createAnswers(currentQuestion);
 
     // When click on an answer
     $('.answer').on('click', function(e) {
@@ -77,6 +74,15 @@ $(document).ready(function($) {
       checkGuess( guess, currentQuestion );
     });
 
+  }
+
+  // function to display answers
+  function createAnswers(question){
+    console.log(question);
+    for ( var i = 0; i < question.choices.length; i++ ) {
+      var answerDiv = $('<div class="answer btn btn-answer animated fadeIn">').text( question.choices[i] );
+      $('#answers').append( answerDiv );
+    }
   }
 
   // Starts Timer
