@@ -28,7 +28,7 @@ $(document).ready(function($) {
     displayQuestion();
   });
 
-  // When aan answer is clicked
+  // When answer is clicked
   $(document).on('click', '.answer', function(e) {
     $(this).addClass('btn-active');
     var guess = $(this).text();
@@ -60,7 +60,7 @@ $(document).ready(function($) {
     $('#trivia-game').show().addClass('bounceIn');
 
     // Add question to h1 DOM
-    $('#question').text( currentQuestion.question ).addClass('animated bounce').removeClass('trivia-logo');
+    $('#question').text( currentQuestion.question ).addClass('animated bounce');
 
     // Clear out #answers html next time function is called
     $('#answers').html('');
@@ -135,10 +135,12 @@ $(document).ready(function($) {
     $('#trivia-game').removeClass('bounceIn');
   }
 
+  // Show Score
   function showScore() {
 
-    $('#question').text('Final Score').addClass('trivia-logo');
-    $('#answers').html('');
+    $('.trivia-logo').text('Final Score');
+    $('#start-game').show();
+    $('#trivia-game').hide();
 
     // Create scores array
     var scores = [{
@@ -159,16 +161,13 @@ $(document).ready(function($) {
     for ( var i = 0; i < scores.length; i++ ) {
       var scoreDiv = $('<div class="score '+ scores[i].class +'">');
       scoreDiv.html( scores[i].text + scores[i].points );
-      $('#answers').append(scoreDiv);
+      $('#start-game .trivia-body').prepend(scoreDiv);
     }
 
     questionCounter = 0;
     correctAnswer = 0;
     wrongAnswer = 0;
     unanswered = 0;
-
-    var restart = $('<div id="restart-game" class="btn btn-start-game">').text('New Game');
-    $('#answers').append( restart );
 
   }
 
