@@ -71,17 +71,18 @@ $(document).ready(function($) {
     $('#timer-interval').html(counter);
   }
 
-  // function to display current question
+  // Display current question
   function displayCurrentQuestion(question){
 
     $('#trivia-game').addClass('bounceIn');
     $('#question').text( question.question ).addClass('animated bounce');
     $('#answers').empty();
 
-    for ( var i = 0; i < question.choices.length; i++ ) {
-      var answerDiv = $('<div class="answer btn btn-answer animated fadeIn">').text( question.choices[i] );
+    $.each( question.choices, function( index, item ){
+      var answerDiv = $('<div class="answer btn btn-answer animated fadeIn">').text( item );
       $('#answers').append( answerDiv );
-    }
+    });
+
   }
 
   // Starts Timer
@@ -91,8 +92,7 @@ $(document).ready(function($) {
 
     if ( counter === 0 ) {
       unanswered++;
-      $('#time-out').show().addClass('flash');
-      $('#time-out').text('Shot Clock Expired, You ran out of time!!!');
+      $('#time-out').show().addClass('flash').text('Shot Clock Expired, You ran out of time!!!');
       nextQuestion();
     }
   }
@@ -100,7 +100,7 @@ $(document).ready(function($) {
   // Stops Timer
   function stopTimer() {
     clearInterval( counterInterval );
-    counterRunning  = false;
+    counterRunning = false;
   }
 
   // Checks if guess is correct
@@ -127,10 +127,11 @@ $(document).ready(function($) {
   function nextQuestion() {
     stopTimer();
     questionCounter++;
+    
     $('#question').removeClass('bounce');
+    $('#trivia-game').removeClass('bounceIn');
 
     setTimeout( displayQuestion, 2000 );
-    $('#trivia-game').removeClass('bounceIn');
   }
 
   // Show Score
