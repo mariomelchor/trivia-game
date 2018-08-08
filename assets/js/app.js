@@ -9,6 +9,7 @@ $(document).ready(function($) {
   var wrongAnswer = 0;
   var unanswered = 0;
   var questions;
+  var currentQuestion;
   
   // Load questions from json file.
   $.getJSON('assets/js/questions.json')
@@ -57,14 +58,8 @@ $(document).ready(function($) {
       counterRunning = true;
     }
 
-    // Adds class to #trivia-game container
-    $('#trivia-game').addClass('bounceIn');
-
-    // Add question to h1 DOM
-    $('#question').text( currentQuestion.question ).addClass('animated bounce');
-    
-    // Create answers function
-    createAnswers(currentQuestion);
+    // Run function to display current question
+    displayCurrentQuestion(currentQuestion);
 
   }
 
@@ -76,9 +71,13 @@ $(document).ready(function($) {
     $('#timer-interval').html(counter);
   }
 
-  // function to display answers
-  function createAnswers(question){
+  // function to display current question
+  function displayCurrentQuestion(question){
+
+    $('#trivia-game').addClass('bounceIn');
+    $('#question').text( question.question ).addClass('animated bounce');
     $('#answers').empty();
+
     for ( var i = 0; i < question.choices.length; i++ ) {
       var answerDiv = $('<div class="answer btn btn-answer animated fadeIn">').text( question.choices[i] );
       $('#answers').append( answerDiv );
