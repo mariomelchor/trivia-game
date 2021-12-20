@@ -1,155 +1,169 @@
-$(document).ready(function($) {
+$(document).ready(($) => {
+  var Trivia = function () {
+  /*
+    * Variables accessible
+    * in the class
+    */
+    var vars = {
+      counter: undefined,
+      counterInterval: undefined,
+      counterRunning: false,
+      questionCounter: 0,
+      correctAnswer: 0,
+      wrongAnswer: 0,
+      unanswered: 0,
+      currentQuestion: 0,
+      questions: undefined,
+    };
 
-  // Variables
-  var counter;
-  var counterInterval;
-  var counterRunning = false;
-  var questionCounter = 0;
-  var correctAnswer = 0;
-  var wrongAnswer = 0;
-  var unanswered = 0;
-  var questions;
-  var currentQuestion;
-  
-  // Load questions from json file.
-  $.getJSON('assets/js/questions.json')
-    .done(function(data){
-      questions = data;
-    })
-    .fail(function() {
-      console.log('There was an error loading the questions');
-    });
+    //  Load questions from json file.
+    var loadQuestions = () => {
+      $.getJSON('assets/js/questions.json')
+        .done(function (data) {
+          vars.questions = data;
+        })
+        .fail(function () {
+          console.log('There was an error loading the questions');
+        });
+    };
 
-  // Hide div on load
-  $('#trivia-game, #scores').hide();
+    var eventListeners = () => {
+      // When you click #btn-start-game
+      $(document).on('click', '.btn-start-game', (e) => {
+        $('#start-game').hide();
+        $('#trivia-game').show();
+        displayQuestion();
+      });
 
-  // When you click #btn-start-game
-  $(document).on('click', '.btn-start-game', function(e) {
-    $('#start-game').hide();
-    $('#trivia-game').show();
-    displayQuestion();
-  });
+      // When answer is clicked
+      $(document).on('click', '.answer', (e) => {
+        $(e.target).addClass('btn-active');
+        var guess = $(e.target).text();
+        checkGuess(guess, vars.currentQuestion);
+      });
+    };
 
-  // When answer is clicked
-  $(document).on('click', '.answer', function(e) {
-    $(this).addClass('btn-active');
-    var guess = $(this).text();
-    checkGuess( guess, currentQuestion );
-  });
+    // Generates each question
+    var displayQuestion = () => {
+      resetCounter();
 
-  // Generates each question
-  function displayQuestion() {
+      // Check to see if game is over if no more questions
+      if (vars.questionCounter === vars.questions.length) {
+        stopTimer();
+        showScore();
+      }
 
-    resetCounter();
+      // Setup currentQuestion
+      vars.currentQuestion = vars.questions[vars.questionCounter];
 
-    // Check to see if game is over if no more questions
-    if ( questionCounter === questions.length ) {
-      stopTimer();
-      showScore();
-      return;
-    }
+      // Run startTimer function every second if not currently running
+      if (!vars.counterRunning) {
+        vars.counterInterval = setInterval(startTimer, 1000);
+        vars.counterRunning = true;
+      }
 
-    // Setup currentQuestion
-    currentQuestion = questions[questionCounter];
+      // Run function to display current question
+      displayCurrentQuestion(vars.currentQuestion);
+    };
 
-    // Run startTimer function every second if not currently running
-    if ( !counterRunning ) {
-      counterInterval = setInterval( startTimer, 1000 );
-      counterRunning = true;
-    }
+    // Reset Counter
+    var resetCounter = () => {
+      vars.counter = 24;
 
-    // Run function to display current question
-    displayCurrentQuestion(currentQuestion);
+      $('#right-answer, #wrong-answer, #time-out').hide();
+      $('#timer-interval').html(vars.counter);
+    };
 
-  }
+    // Display current question
+    var displayCurrentQuestion = (question) => {
+      $('#trivia-game').addClass('bounceIn');
+      $('#question').text(question.question).addClass('animated bounce');
+      $('#answers').empty();
 
-  // Reset Counter
-  function resetCounter(){
-    counter = 24;
+      $.each(question.choices, (index, item) => {
+        var answerDiv = $(
+          '<div class="answer btn btn-answer animated fadeIn">'
+        ).text(item);
+        $('#answers').append(answerDiv);
+      });
+    };
 
-    $('#right-answer, #wrong-answer, #time-out').hide();
-    $('#timer-interval').html(counter);
-  }
+    // Starts Timer
+    var startTimer = () => {
+      vars.counter--;
+      $('#timer-interval').html(vars.counter);
 
-  // Display current question
-  function displayCurrentQuestion(question){
+      if (vars.counter === 0) {
+        vars.unanswered++;
+        $('#time-out')
+          .show()
+          .addClass('flash')
+          .text('Shot Clock Expired, You ran out of time!!!');
+        nextQuestion();
+      }
+    };
 
-    $('#trivia-game').addClass('bounceIn');
-    $('#question').text( question.question ).addClass('animated bounce');
-    $('#answers').empty();
+    // Stops Timer
+    var stopTimer = () => {
+      clearInterval(vars.counterInterval);
+      vars.counterRunning = false;
+    };
 
-    $.each( question.choices, function( index, item ){
-      var answerDiv = $('<div class="answer btn btn-answer animated fadeIn">').text( item );
-      $('#answers').append( answerDiv );
-    });
+    // Checks if guess is correct
+    var checkGuess = (guess, question) => {
+      var correctNumber = question.correctAnswer;
+      var correct = question.choices[correctNumber];
 
-  }
+      // Shows #right-answer/#wrong-answer div depending on guess
+      if (guess === correct) {
+        vars.correctAnswer++;
+        $('#right-answer').show().addClass('flash');
+        $('#right-answer').text('Swoosh, that is the Correct answer!!!');
+      } else {
+        vars.wrongAnswer++;
+        $('#wrong-answer').show().addClass('flash');
+        $('#wrong-answer').text(
+          'Brick, that is the Wrong answer!!! The correct answer is: ' + correct
+        );
+      }
 
-  // Starts Timer
-  function startTimer() {
-    counter--;
-    $('#timer-interval').html(counter);
-
-    if ( counter === 0 ) {
-      unanswered++;
-      $('#time-out').show().addClass('flash').text('Shot Clock Expired, You ran out of time!!!');
       nextQuestion();
-    }
-  }
+    };
 
-  // Stops Timer
-  function stopTimer() {
-    clearInterval( counterInterval );
-    counterRunning = false;
-  }
+    // Show the next question in questions array
+    var nextQuestion = () => {
+      stopTimer();
+      vars.questionCounter++;
 
-  // Checks if guess is correct
-  function checkGuess( guess, question ) {
-    var correctNumber = question.correctAnswer;
-    var correct = question.choices[correctNumber];
+      $('#question').removeClass('bounce');
+      $('#trivia-game').removeClass('bounceIn');
 
-    // Shows #right-answer/#wrong-answer div depending on guess
-    if ( guess === correct ) {
-      correctAnswer++;
-      $('#right-answer').show().addClass('flash');
-      $('#right-answer').text('Swoosh, that is the Correct answer!!!');
-    } else {
-      wrongAnswer++;
-      $('#wrong-answer').show().addClass('flash');
-      $('#wrong-answer').text( 'Brick, that is the Wrong answer!!! The correct answer is: ' + correct );
-    }
+      setTimeout(displayQuestion, 2000);
+    };
 
-    nextQuestion();
+    // Show Score
+    var showScore = () => {
+      $('.trivia-logo').text('Final Score');
+      $('#start-game, #scores').show();
+      $('#trivia-game').hide();
 
-  }
+      $('.time-out span').text(vars.unanswered);
+      $('.wrong-answer span').text(vars.wrongAnswer);
+      $('.right-answer span').text(vars.correctAnswer);
 
-  // Show the next question in questions array
-  function nextQuestion() {
-    stopTimer();
-    questionCounter++;
-    
-    $('#question').removeClass('bounce');
-    $('#trivia-game').removeClass('bounceIn');
+      vars.questionCounter = 0;
+      vars.correctAnswer = 0;
+      vars.wrongAnswer = 0;
+      vars.unanswered = 0;
+    };
 
-    setTimeout( displayQuestion, 2000 );
-  }
+    this.start = () => {
+      $('#trivia-game, #scores').hide();
+      loadQuestions();
+      eventListeners();
+    };
+  };
 
-  // Show Score
-  function showScore() {
-
-    $('.trivia-logo').text('Final Score');
-    $('#start-game, #scores').show();
-    $('#trivia-game').hide();
-    
-    $('.time-out span').text(unanswered);
-    $('.wrong-answer span').text(wrongAnswer);
-    $('.right-answer span').text(correctAnswer);
-
-    questionCounter = 0;
-    correctAnswer = 0;
-    wrongAnswer = 0;
-    unanswered = 0;
-
-  }
-
+  const trivia = new Trivia();
+  trivia.start();
 });
